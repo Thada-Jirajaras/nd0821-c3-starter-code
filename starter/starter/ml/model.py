@@ -1,15 +1,17 @@
 """
 library for model training and inference
 """
+import joblib
 import pandas as pd
 from sklearn.metrics import fbeta_score, precision_score, recall_score
 import xgboost as xgb
 from .data import process_data
 
-
 # define a model class
+
+
 class Model:
-    def __init__(self, model=xgb.XGBClassifier()):
+    def __init__(self, preprocessor, model=None):
         self.model = model
         self.cat_features = [
             "workclass",
@@ -21,13 +23,14 @@ class Model:
             "sex",
             "native-country",
         ]
+        self.model = model
+        self.preprocessor = preprocessor
 
     def fit(self, train, label="salary"):
 
         # train the model
-        X_train, y_train, encoder, lb = process_data(
+        X_train, y_train, encoder, lb = self.preprocessor(
             train, categorical_features=self.cat_features, label=label, training=True)
-        self.model = xgb.XGBClassifier()
         self.model.fit(X_train, y_train)
 
         # keep components
@@ -36,11 +39,11 @@ class Model:
         self.label = label
 
     def predict(self, test, label=None):
-        
+
         if self.label in test.columns:
             label = self.label
-       
-        X_test, y_test, encoder, lb = process_data(
+
+        X_test, y_test, encoder, lb = self.preprocessor(
             test, categorical_features=self.cat_features, label=label,
             training=False, encoder=self.encoder, lb=self.lb
         )
@@ -48,7 +51,23 @@ class Model:
         preds = self.model.predict(X_test)
         return preds, y_test
 
-# Optional: implement hyperparameter tuning.
+    def save_weights(self, model_path):
+        weights = {
+            "model": self.model,
+            "cat_features": self.cat_features,
+            "encoder": self.encoder,
+            "lb": self.lb,
+            "label": self.label
+        }
+        joblib.dump(weights, model_path)
+
+    def load_weights(self, model_path):
+        weights = joblib.load(model_path)
+        self.model = weights["model"]
+        self.cat_features = weights["cat_features"]
+        self.encoder = weights["encoder"]
+        self.lb = weights["lb"]
+        self.label = weights["label"]
 
 
 def train_model(train):
@@ -67,7 +86,7 @@ def train_model(train):
         Trained machine learning model.
     """
 
-    model = Model()
+    model = Model(model=xgb.XGBClassifier(), preprocessor=process_data)
     model.fit(train)
     return model
 
@@ -122,14 +141,14 @@ def performance_on_slices(model, testdata, cat_features):
     subdata = testdata
     y_test, preds = model.predict(subdata)
     precision, recall, fbeta = compute_model_metrics(y_test, preds)
-    performance_on_slices.append(
-        {"Feature": "All", "Value": "All", 'N': len(subdata), "fbeta": fbeta, "precision": precision, "recall": recall})
+    performance_on_slices.append({"Feature": "All", "Value": "All", 'N': len(
+        subdata), "fbeta": fbeta, "precision": precision, "recall": recall})
     for cat_feat in cat_features:
         for cat_value in testdata[cat_feat].unique():
             subdata = testdata[testdata[cat_feat] == cat_value]
             y_test, preds = model.predict(subdata)
             precision, recall, fbeta = compute_model_metrics(y_test, preds)
-            performance_on_slices.append(
-                {"Feature": cat_feat, "Value": cat_value, 'N': len(subdata), "fbeta": fbeta, "precision": precision, "recall": recall})
+            performance_on_slices.append({"Feature": cat_feat, "Value": cat_value, 'N': len(
+                subdata), "fbeta": fbeta, "precision": precision, "recall": recall})
     performance_on_slices = pd.DataFrame(performance_on_slices)
     return performance_on_slices
