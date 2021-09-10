@@ -1,17 +1,23 @@
 # Model Card
 
-For additional information see the Model Card paper: https://arxiv.org/pdf/1810.03993.pdf
-
 ## Model Details
+
+Thada created the model. The model pipline consists of 
+(a) a OnehotEncoder for the catagorical features
+(b) a label binarizer for the labels
+(c) and an XGBoost model (XGBoost=1.4.0) with default parameters.
+
 
 ## Intended Use
 
-## Training Data
+Model is trained to predict whether income exceeds $50K/yr based on census data from various countries. 
 
-## Evaluation Data
+## Data
+The data was obtained from the UCI Machine Learning Repository (https://archive.ics.uci.edu/ml/datasets/census+income). The original data set has 32,561 rows, and a 80-20 split was used to break this into a train and test set. To use the data for training a label binarizer was used on the labels.
 
 ## Metrics
 
-## Ethical Considerations
+fbeta, precision, recall is used in this project. Overall performance is (fbeta=0.71, precision=0.65, recall=0.77) Perfomance of the test data by groups can be found at ./data/performance_by_group.csv
 
-## Caveats and Recommendations
+## Bias
+The majority of the data is from race=White (N=27,816) so the perfomance of other races may drops (please see more bias detail at ./data/performance_by_group.csv)
