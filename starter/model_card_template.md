@@ -14,7 +14,7 @@ Thada created the model. The model pipline consists of
 Model is trained to predict whether income exceeds $50K/yr based on census data from various countries. 
 
 ## Data
-The data was obtained from the UCI Machine Learning Repository (https://archive.ics.uci.edu/ml/datasets/census+income). The original data set has 32,561 rows, and a 80-20 split was used to break this into a train and test set. To use the data for training a label binarizer was used on the labels.
+The data was obtained from the UCI Machine Learning Repository (https://archive.ics.uci.edu/ml/datasets/census+income). The original data set has 32,561 rows. Then, the data is cleaned and saved as cleaned_data.csv to a S3 bucket. The cleaned data can be pull by the "dvc pull" command. A 80-20 split was used to break this cleaned data into a train and test set. To use the data for training a label binarizer was used on the labels.
 
 ## Metrics
 
