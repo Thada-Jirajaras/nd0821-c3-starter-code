@@ -36,9 +36,10 @@ class Model:
         self.label = label
 
     def predict(self, test, label=None):
-
+        
         if self.label in test.columns:
             label = self.label
+       
         X_test, y_test, encoder, lb = process_data(
             test, categorical_features=self.cat_features, label=label,
             training=False, encoder=self.encoder, lb=self.lb

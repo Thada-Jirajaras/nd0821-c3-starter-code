@@ -5,7 +5,7 @@
 Thada created the model. The model pipline consists of 
 
 1. a OnehotEncoder for the catagorical features
-2. a label binarizer for the labels
+2. a label binarizer for the labels (the positive class '>50K' is encoded to 1 and '<=50K' is encoded as 0)
 3. and an XGBoost model (XGBoost=1.4.0) with default parameters.
 
 
