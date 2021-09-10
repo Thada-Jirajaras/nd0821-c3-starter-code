@@ -19,6 +19,7 @@ data = pd.read_csv(os.path.join('..', 'data', 'cleaned_census.csv'))
 # Optional enhancement, use K-fold cross validation instead of a
 # train-test split.
 train, test = train_test_split(data, test_size=0.20)
+train.to_csv(os.path.join('..', 'data', 'train_census.csv'), index = False)
 test.to_csv(os.path.join('..', 'data', 'test_census.csv'), index = False)
 
 cat_features = [
