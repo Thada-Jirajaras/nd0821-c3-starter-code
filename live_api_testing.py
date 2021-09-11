@@ -1,3 +1,4 @@
+import json
 import requests
 
 data = {"age": "39",
@@ -15,7 +16,7 @@ data = {"age": "39",
         "hours-per-week": "40",
         "native-country": "United-States"}
 
-r = requests.post(
+response = requests.post(
     'https://udacity-api-project.herokuapp.com/predict',
     data=json.dumps(data))
 print(response.status_code)
