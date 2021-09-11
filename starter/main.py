@@ -1,4 +1,3 @@
-# autopep8 --in-place --aggressive --aggressive
 # Put the code for your API here.
 import os
 import joblib
