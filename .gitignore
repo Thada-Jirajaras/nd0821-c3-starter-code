@@ -1,5 +1,6 @@
 # secret file
 aws_access.txt
+heroku_gitlink.txt
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
