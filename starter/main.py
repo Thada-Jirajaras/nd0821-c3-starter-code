@@ -6,8 +6,8 @@ import pandas as pd
 from fastapi import FastAPI, Query
 from typing import Union
 from pydantic import BaseModel
-from starter.ml.model import inference, Model
-from starter.ml.data import process_data
+from .starter.ml.model import inference, Model
+from .starter.ml.data import process_data
 
 # Declare the data object with its components and their type.
 
@@ -16,7 +16,7 @@ if "DYNO" in os.environ and os.path.isdir(".dvc"):
     os.system("dvc config core.no_scm true")
     if os.system("dvc pull") != 0:
         exit("dvc pull failed")
-    os.system("rm -r .dvc .apt/usr/lib/dvc")
+    os.system("rm -r .dvc") #rm -r .dvc .apt/usr/lib/dvc
     
 # provide input structure
 class Features(BaseModel):

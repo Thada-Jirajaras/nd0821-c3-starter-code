@@ -3,8 +3,8 @@ import joblib
 import pandas as pd
 import numpy as np
 import pytest
-from ml.model import train_model, inference, compute_model_metrics, Model
-from ml.data import process_data
+from .ml.model import train_model, inference, compute_model_metrics, Model
+from .ml.data import process_data
 
 @pytest.fixture
 def testdata():
