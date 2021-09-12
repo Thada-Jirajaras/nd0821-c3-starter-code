@@ -31,11 +31,14 @@ def test_train_model(traindata):
 def test_inference(traindata, testdata):
     # train and save model
     model = train_model(traindata)
-    model.save_weights('model.pkl')
+    model.save_weights('model.pkl', 'onehot_encoder.pkl')
 
     # load model
     model = Model(preprocessor = process_data)
-    model.load_weights('model.pkl')
+    model.load_weights('model.pkl', 'onehot_encoder.pkl')
+    os.system('rm model.pkl')
+    os.system('onehot_encoder.pkl')
+  
 
     # test inference case (without salary, and return  return predicted result
     # as encoded-label format)

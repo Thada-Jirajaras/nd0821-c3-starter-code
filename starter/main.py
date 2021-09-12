@@ -35,7 +35,10 @@ class Features(BaseModel):
 
 # load model
 model = Model(preprocessor = process_data) 
-model.load_weights(os.path.join('starter', 'model', 'model.pkl'))
+model.load_weights(
+    model_path=os.path.join('starter', 'model', 'model.pkl'),
+    encoder_path=os.path.join('starter', 'model', 'onehot_encoder.pkl')
+)
 
 
 # Instantiate the app.

@@ -51,21 +51,24 @@ class Model:
         preds = self.model.predict(X_test)
         return preds, y_test
 
-    def save_weights(self, model_path):
+    def save_weights(self, model_path, encoder_path):
         weights = {
             "model": self.model,
             "cat_features": self.cat_features,
-            "encoder": self.encoder,
             "lb": self.lb,
             "label": self.label
-        }
+        }     
         joblib.dump(weights, model_path)
+        joblib.dump(self.encoder, encoder_path)
+        
+        
 
-    def load_weights(self, model_path):
+    def load_weights(self, model_path, encoder_path):
+        # load models
         weights = joblib.load(model_path)
+        self.encoder = joblib.load(encoder_path)
         self.model = weights["model"]
         self.cat_features = weights["cat_features"]
-        self.encoder = weights["encoder"]
         self.lb = weights["lb"]
         self.label = weights["label"]
 
