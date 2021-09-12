@@ -9,7 +9,12 @@ from .starter.ml.model import inference, Model
 from .starter.ml.data import process_data
 
 # Declare the data object with its components and their type.
-
+if "DYNO" in os.environ and os.path.isdir(".dvc"):
+    print("Running DVC")
+    os.system("dvc config core.no_scm true")
+    if os.system("dvc pull") != 0:
+        exit("Pull failed")
+    os.system("rm -r .dvc .apt/usr/lib/dvc")
     
 # provide input structure
 class Features(BaseModel):
