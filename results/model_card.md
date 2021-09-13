@@ -18,7 +18,7 @@ The data was obtained from the UCI Machine Learning Repository (https://archive.
 
 ## Metrics
 
-fbeta is used in this project. Overall performance is fbeta=0.72 Perfomance of the test data by groups can be found at ./data/performance_by_group.csv
+fbeta is used in this project. Overall performance is fbeta=0.71 Perfomance of the test data by groups can be found at ./data/performance_by_group.csv
 
 ## Bias
 The majority of the data is from race=White (N=27,816) so the perfomance of other races may drops (please see more bias detail at ./data/performance_by_group.csv)

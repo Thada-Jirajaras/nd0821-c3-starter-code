@@ -10,7 +10,8 @@ from sklearn.model_selection import train_test_split
 
 # Add the necessary imports for the starter code.
 from starter.starter.ml.data import process_data
-from starter.starter.ml.model import train_model, compute_model_metrics, performance_on_slices, Model
+from starter.starter.ml.model import train_model, compute_model_metrics
+from starter.starter.ml.model import performance_on_slices, Model, inference
 
 # Add code to load in the data.
 data = pd.read_csv(os.path.join('starter', 'data', 'cleaned_census.csv'))
@@ -61,4 +62,14 @@ performance_by_group.to_csv(
         'starter',
         'data',
         'performance_by_group.csv'),
+    index=False)
+
+# Inference
+preds = inference(model, test)
+test['prediction'] = preds
+test.to_csv(
+    os.path.join(
+        'starter',
+        'data',
+        'test_prediction.csv'),
     index=False)

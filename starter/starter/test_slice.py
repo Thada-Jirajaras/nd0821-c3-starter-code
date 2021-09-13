@@ -37,7 +37,7 @@ def test_inference(traindata, testdata):
     model = Model(preprocessor = process_data)
     model.load_weights('model.pkl', 'onehot_encoder.pkl')
     os.system('rm model.pkl')
-    os.system('onehot_encoder.pkl')
+    os.system('rm onehot_encoder.pkl')
   
 
     # test inference case (without salary, and return  return predicted result
