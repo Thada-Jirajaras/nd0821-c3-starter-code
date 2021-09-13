@@ -3,4 +3,5 @@
 /cleaned_census.csv
 /test_census.csv
 /train_census.csv
-/test_prediction.csv
+/negative_samples.csv
+/positive_samples.csv

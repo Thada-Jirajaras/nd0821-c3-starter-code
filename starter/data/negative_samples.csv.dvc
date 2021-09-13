@@ -1,0 +1,4 @@
+outs:
+- md5: c4f2de53189f7ee93b530f677516cf3d
+  size: 1175
+  path: negative_samples.csv

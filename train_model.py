@@ -67,9 +67,17 @@ performance_by_group.to_csv(
 # Inference
 preds = inference(model, test)
 test['prediction'] = preds
-test.to_csv(
+positive_samples = test[test['prediction']=='>50K'].sample(n=10,random_state=9).drop(columns = ['salary', 'prediction'])
+negative_samples = test[test['prediction']=='<=50K'].sample(n=10,random_state=9).drop(columns = ['salary', 'prediction'])
+positive_samples.to_csv(
     os.path.join(
         'starter',
         'data',
-        'test_prediction.csv'),
+        'positive_samples.csv'),
+    index=False)
+negative_samples.to_csv(
+    os.path.join(
+        'starter',
+        'data',
+        'negative_samples.csv'),
     index=False)

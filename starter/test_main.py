@@ -14,9 +14,9 @@ def positive_samples():
     df = pd.read_csv(os.path.join(
         'starter',
         'data',
-        'test_prediction.csv')
+        'positive_samples.csv')
     )
-    samples = df[df['prediction']=='>50K'].sample(n=10,random_state=9).drop(columns = ['salary', 'prediction']).to_dict('record')
+    samples = df.to_dict('record')
     return samples
 
 @pytest.fixture
@@ -24,9 +24,9 @@ def negative_samples():
     df = pd.read_csv(os.path.join(
         'starter',
         'data',
-        'test_prediction.csv')
+        'negative_samples.csv')
     )
-    samples = df[df['prediction']=='<=50K'].sample(n=10,random_state=9).drop(columns = ['salary', 'prediction']).to_dict('record')
+    samples = df.to_dict('record')
     return samples
 
 
